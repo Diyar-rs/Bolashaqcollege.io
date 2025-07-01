@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Студентам - Профессиональный колледж</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #502c2c;
+            --secondary-color: #a01616;
+            --accent-color: #db3434;
+            --light-color: #f8f9fa;
+            --dark-color: #333;
+            --text-color: #333;
+            --bg-color: #fff;
+            --header-height: 80px;
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dark-theme {
+            --text-color: #f4f4f4;
+            --bg-color: #222;
+            --light-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Шапка сайта */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        nav ul li a.active {
+            background-color: var(--secondary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Заголовок страницы */
+        .page-header {
+            height: 300px;
+            background: linear-gradient(rgba(80, 44, 44, 0.85), rgba(80, 44, 44, 0.85)), url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: var(--header-height);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .breadcrumb li {
+            margin: 0 5px;
+        }
+
+        .breadcrumb li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb li::after {
+            content: '/';
+            margin-left: 10px;
+            color: #ccc;
+        }
+
+        .breadcrumb li:last-child::after {
+            content: '';
+        }
+
+        /* Основной контент */
+        .students-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .video-section {
+            margin-bottom: 80px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .video-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .video-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .resource-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .resource-card:hover h3,
+        .resource-card:hover .resource-icon {
+            color: white;
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .resource-card h3 {
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #8a1313;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #b92929;
+        }
+
+        /* Переключатель темы */
+        .theme-switcher {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .theme-switcher:hover {
+            transform: rotate(30deg);
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-image"></div>
+                <h1>BOLASHAQКОЛЛЕДЖ</h1>
+            </div>
+            
+            <button class="hamburger">☰</button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О колледже</a></li>
+                    <li><a href="activity.html">Деятельность</a></li>
+                    <li><a href="specialties.html">Специальности</a></li>
+                    <li><a href="students.html" class="active">Студентам</a></li>
+                    <li><a href="applicants.html">Абитуриентам</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="admin.html">Админ-панель</a></li>
+                    <li><a href="ai-chat.html">ИИ-чат</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Студентам</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Главная</a></li>
+                <li>Студентам</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <section class="students-section">
+        <div class="container">
+            <h2 class="section-title">Видеоматериалы для студентов</h2>
+            
+            <div class="video-section">
+                <div class="video-grid">
+                    <!-- Видео 1 -->
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="img/IMG_0193.MP4" title="Эффективные методы обучения" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <h3>Обзор по колледжу</h3>
+                            <p>Узнайте о современных методиках обучения, которые помогут вам усваивать информацию быстрее и эффективнее. Советы от ведущих преподавателей.</p>
+                            <div class="video-meta">
+                                <span><i class="fas fa-clock"></i> 15:24</span>
+                                <span><i class="fas fa-calendar"></i> 12.05.2023</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Видео 2 -->
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="img/IMG_0231.MP4" title="Подготовка к экзаменам" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <h3>Профессия</h3>
+                            <p>Практические рекомендации по подготовке к экзаменам. Как справиться со стрессом, организовать время и эффективно запоминать информацию.</p>
+                            <div class="video-meta">
+                                <span><i class="fas fa-clock"></i> 18:42</span>
+                                <span><i class="fas fa-calendar"></i> 28.04.2023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Полезные ресурсы</h2>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-book"></i></div>
+                    <h3>Учебные материалы</h3>
+                    <p>Лекции, методички, учебные пособия по всем дисциплинам</p>
+                    <a href="#" class="btn">Перейти</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Расписание занятий</h3>
+                    <p>Актуальное расписание для всех курсов и групп</p>
+                    <a href="#" class="btn">Перейти</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Дистанционное обучение</h3>
+                    <p>Доступ к онлайн-курсам и платформе дистанционного обучения</p>
+                    <a href="#" class="btn">Перейти</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-user-friends"></i></div>
+                    <h3>Студенческое сообщество</h3>
+                    <p>Форумы, чаты и мероприятия для студентов</p>
+                    <a href="#" class="btn">Перейти</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Стажировки и практика</h3>
+                    <p>Информация о возможностях прохождения практики и стажировок</p>
+                    <a href="#" class="btn">Перейти</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Библиотека</h3>
+                    <p>Электронные книги, журналы и научные статьи</p>
+                    <a href="#" class="btn">Перейти</a>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn btn-secondary">Смотреть все видеоматериалы</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ПРОФЕССИОНАЛЬНЫЙ КОЛЛЕДЖ</h3>
+                    <p>Основан в 2006 году. Обеспечиваем качественное образование и подготовку специалистов для различных отраслей экономики.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О колледже</a></li>
+                        <li><a href="specialties.html">Специальности</a></li>
+                        <li><a href="students.html">Студентам</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li>📍 ул. Центральная, д. 123</li>
+                        <li>📞 +7 (123) 456-78-90</li>
+                        <li>✉️ info@profcollege.edu</li>
+                        <li>🕒 Пн-Пт: 8:00 - 18:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2006-2023 Профессиональный колледж. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Переключатель темы -->
+    <div class="theme-switcher">🌓</div>
+
+    <script>
+        // Мобильное меню
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Переключение темы
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Проверка сохраненной темы
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+    </script>
+</body>
+</html>

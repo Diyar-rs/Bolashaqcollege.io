@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Деятельность - БО ЛАШ АК КОЛЛЕДЖ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Общие стили */
+        :root {
+            --primary-color: #7c0000;
+            --secondary-color: #f80000;
+            --light-color: #f4f4f4;
+            --dark-color: #333;
+            --text-color: #333;
+            --bg-color: #fff;
+            --header-height: 80px;
+            --transition: all 0.3s ease;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .dark-theme {
+            --text-color: #f4f4f4;
+            --bg-color: #222;
+            --light-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+        }
+
+        /* Шапка сайта */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        nav ul li a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Заголовок страницы */
+        .page-header {
+            height: 300px;
+            background: linear-gradient(rgba(124, 0, 0, 0.85), rgba(124, 0, 0, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: var(--header-height);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            color: white;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .breadcrumb li {
+            margin: 0 5px;
+        }
+
+        .breadcrumb li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb li::after {
+            content: '/';
+            margin-left: 10px;
+            color: #ccc;
+        }
+
+        .breadcrumb li:last-child::after {
+            content: '';
+        }
+
+        /* Основной контент */
+        .activities-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        .activity-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .activity-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .activity-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(124, 0, 0, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .activity-overlay h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .activity-content {
+            padding: 25px;
+        }
+
+        .activity-content p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .activity-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #600000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e00000;
+        }
+
+        /* Календарь мероприятий */
+        .events-calendar {
+            background-color: var(--light-color);
+            padding: 80px 0;
+            margin-bottom: 80px;
+        }
+
+        .calendar-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .calendar-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .calendar-nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .calendar-nav button:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            padding: 20px;
+            gap: 10px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .calendar-day {
+            height: 100px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 8px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .calendar-day:hover {
+            background-color: rgba(0,74,124,0.05);
+        }
+
+        .calendar-day.empty {
+            background-color: #f9f9f9;
+            border: none;
+        }
+
+        .day-number {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .calendar-event {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 25px;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .calendar-event:hover {
+            background-color: #e00000;
+        }
+
+        /* Галерея */
+        .gallery-section {
+            margin-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            box-shadow: var(--box-shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(124, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: auto;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Баннер директора */
+        
+        /* Переключатель темы */
+        .theme-switcher {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .theme-switcher:hover {
+            transform: rotate(30deg);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .director-banner {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .calendar-grid {
+                gap: 5px;
+                padding: 10px;
+            }
+            
+            .calendar-day {
+                height: 80px;
+                padding: 5px;
+            }
+            
+            .calendar-event {
+                font-size: 0.7rem;
+                padding: 2px 4px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-image"></div>
+                <h1>BOLASHAK КОЛЛЕДЖ</h1>
+            </div>
+            
+            <button class="hamburger">☰</button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О колледже</a></li>
+                    <li><a href="activity.html" class="active">Деятельность</a></li>
+                    <li><a href="specialties.html">Специальности</a></li>
+                    <li><a href="students.html">Студентам</a></li>
+                    <li><a href="applicants.html">Абитуриентам</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="admin.html">Админ-панель</a></li>
+                    <li><a href="ai-chat.html">ИИ-чат</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Деятельность колледжа</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Главная</a></li>
+                <li>Деятельность</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <section class="activities-section">
+        <div class="container">
+            <h2 class="section-title">Направления деятельности</h2>
+            
+            <div class="activities-grid">
+                <!-- Карточка 1 -->
+                <div class="activity-card animated">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <div class="activity-overlay">
+                            <h3>Научная работа</h3>
+                        </div>
+                    </div>
+                    <div class="activity-content">
+                        <p>Организация научных конференций, студенческих исследований, участие в олимпиадах и конкурсах научных работ.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Постоянно</span>
+                            <span><i class="fas fa-users"></i> Студенты, преподаватели</span>
+                        </div>
+                        <a href="#" class="btn">Узнать больше</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 2 -->
+                <div class="activity-card animated delay-1">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <div class="activity-overlay">
+                            <h3>Культурные мероприятия</h3>
+                        </div>
+                    </div>
+                    <div class="activity-content">
+                        <p>Традиционные праздники, театральные постановки, музыкальные вечера, литературные гостиные и выставки творческих работ.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Ежемесячно</span>
+                            <span><i class="fas fa-users"></i> Все желающие</span>
+                        </div>
+                        <a href="#" class="btn">Узнать больше</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 3 -->
+                <div class="activity-card animated delay-2">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <div class="activity-overlay">
+                            <h3>Спортивная жизнь</h3>
+                        </div>
+                    </div>
+                    <div class="activity-content">
+                        <p>Спортивные секции, турниры между группами и факультетами, участие в городских и региональных соревнованиях.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Еженедельно</span>
+                            <span><i class="fas fa-users"></i> Студенты, сотрудники</span>
+                        </div>
+                        <a href="#" class="btn">Узнать больше</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 4 -->
+                <div class="activity-card animated">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <div class="activity-overlay">
+                            <h3>Волонтерство</h3>
+                        </div>
+                    </div>
+                    <div class="activity-content">
+                        <p>Социальные проекты, помощь детским домам и домам престарелых, экологические акции, благотворительные мероприятия.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Постоянно</span>
+                            <span><i class="fas fa-users"></i> Студенты</span>
+                        </div>
+                        <a href="#" class="btn">Узнать больше</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 5 -->
+                <div class="activity-card animated delay-1">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <div class="activity-overlay">
+                            <h3>Профессиональные конкурсы</h3>
+                        </div>
+                    </div>
+                    <div class="activity-content">
+                        <p>WorldSkills, профессиональные олимпиады, конкурсы профессионального мастерства по различным специальностям.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Сезонно</span>
+                            <span><i class="fas fa-users"></i> Студенты</span>
+                        </div>
+                        <a href="#" class="btn">Узнать больше</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 6 -->
+                <div class="activity-card animated delay-2">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80');">
+                        <div class="activity-overlay">
+                            <h3>Международное сотрудничество</h3>
+                        </div>
+                    </div>
+                    <div class="activity-content">
+                        <p>Программы обмена, совместные проекты с зарубежными колледжами, международные конференции и стажировки.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Ежегодно</span>
+                            <span><i class="fas fa-users"></i> Студенты, преподаватели</span>
+                        </div>
+                        <a href="#" class="btn">Узнать больше</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Календарь мероприятий -->
+    <section class="events-calendar">
+        <div class="container">
+            <h2 class="section-title">Календарь мероприятий</h2>
+            
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3>Июнь 2023</h3>
+                    <div class="calendar-nav">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Пн</div>
+                    <div class="calendar-day-header">Вт</div>
+                    <div class="calendar-day-header">Ср</div>
+                    <div class="calendar-day-header">Чт</div>
+                    <div class="calendar-day-header">Пт</div>
+                    <div class="calendar-day-header">Сб</div>
+                    <div class="calendar-day-header">Вс</div>
+                    
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day">
+                        <span class="day-number">1</span>
+                        <div class="calendar-event">День защиты детей</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">2</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">3</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">4</span>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <span class="day-number">5</span>
+                        <div class="calendar-event">Начало летней практики</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">6</span>
+                        <div class="calendar-event">Экологическая акция</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">7</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">8</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">9</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">10</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">11</span>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <span class="day-number">12</span>
+                        <div class="calendar-event">День России</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">13</span>
+                        <div class="calendar-event">Научная конференция</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">14</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">15</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">16</span>
+                        <div class="calendar-event">Турнир по волейболу</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">17</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">18</span>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <span class="day-number">19</span>
+                        <div class="calendar-event">Встреча с работодателями</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">20</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">21</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">22</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">23</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">24</span>
+                        <div class="calendar-event">Выпускной вечер</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">25</span>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <span class="day-number">26</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">27</span>
+                        <div class="calendar-event">День молодёжи</div>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">28</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">29</span>
+                    </div>
+                    <div class="calendar-day">
+                        <span class="day-number">30</span>
+                        <div class="calendar-event">Закрытие летнего сезона</div>
+                    </div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея мероприятий -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Галерея мероприятий</h2>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Научная конференция">
+                    <div class="gallery-caption">Научная конференция 2023</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Спортивные соревнования">
+                    <div class="gallery-caption">Турнир по баскетболу</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Творческий вечер">
+                    <div class="gallery-caption">Творческий вечер поэзии</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Волонтерская акция">
+                    <div class="gallery-caption">Экологический субботник</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Работа в лаборатории">
+                    <div class="gallery-caption">Работа в химической лаборатории</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Выставка">
+                    <div class="gallery-caption">Выставка студенческих проектов</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn btn-secondary">Смотреть все фото</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>БОЛАШАК КОЛЛЕДЖ</h3>
+                    <p>Основан в 2006 году. Обеспечиваем качественное образование и подготовку специалистов для различных отраслей экономики.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О колледже</a></li>
+                        <li><a href="activity.html">Деятельность</a></li>
+                        <li><a href="specialties.html">Специальности</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li>📍 ул. Центральная, д. 123</li>
+                        <li>📞 +7 (123) 456-78-90</li>
+                        <li>✉️ info@bolashak-college.edu</li>
+                        <li>🕒 Пн-Пт: 8:00 - 18:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2006-2023 БОЛАШАК КОЛЛЕДЖ. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Баннер директора -->
+    <div class="director-banner">
+        <div class="director-photo"></div>
+        <div class="director-info">
+            <h4>Иванов Иван Иванович</h4>
+            <p>Директор колледжа</p>
+            <p>Кандидат педагогических наук</p>
+            <p>Заслуженный учитель РФ</p>
+        </div>
+    </div>
+
+    <!-- Переключатель темы -->
+    <div class="theme-switcher">🌓</div>
+
+    <script>
+        // Мобильное меню
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Переключение темы
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Проверка сохраненной темы
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        // Анимации при прокрутке
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.activity-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Имитация баннера директора (160x600 мм)
+        console.log("Баннер директора (160x600 мм) размещен в левой нижней части страницы");
+    </script>
+</body>
+</html>

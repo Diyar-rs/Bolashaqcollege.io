@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИИ-чат | BO LASH AK COLLEGE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #db1a1a;
+            --secondary-color: #5c0e0e;
+            --accent-color: #ff6b00;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-light: #f8f9fa;
+            --text-dark: #212529;
+            --bg-light: #ffffff;
+            --bg-dark: #121212;
+            --user-msg: #db1a1a;
+            --bot-msg: #f0f4f8;
+            --dark-user-msg: #ff3a3a;
+            --dark-bot-msg: #3b1e1e;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        body.dark-theme {
+            background: linear-gradient(135deg, #5c0e0e, #380909);
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            background: var(--bg-light);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .dark-theme .chat-container {
+            background: var(--bg-dark);
+        }
+
+        /* Header */
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0rgba(255, 255, 255, 0),0) 70%;
+            pointer-events: none;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .ai-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .ai-badge .pulse {
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 255, 157, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 255, 157, 0);
+            }
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png'), var(--bg-light);
+            background-size: 200px;
+            transition: var(--transition);
+        }
+
+        .dark-theme .chat-messages {
+            background: url('https://www.transparenttextures.com/patterns/dark-cubes.png'), var(--bg-dark);
+            background-size: 200px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+            line-height: 1.5;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--user-msg);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .dark-theme .message.user {
+            background: var(--dark-user-msg);
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: var(--bot-msg);
+            color: var(--text-dark);
+            border-bottom-left-radius: 5px;
+        }
+
+        .dark-theme .message.bot {
+            background: var(--dark-bot-msg);
+            color: var(--text-light);
+        }
+
+        .message.loading {
+            width: 120px;
+            background: var(--bot-msg);
+            display: flex;
+            gap: 5px;
+            padding: 15px;
+        }
+
+        .dark-theme .message.loading {
+            background: var(--dark-bot-msg);
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #888;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        .message-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .user .avatar {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .bot .avatar {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        .user .message-time {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .bot .message-time {
+            color: #666;
+        }
+
+        .dark-theme .bot .message-time {
+            color: #aaa;
+        }
+
+        .message-content {
+            font-size: 1rem;
+        }
+
+        .bot .message-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .dark-theme .bot .message-content a {
+            color: #ff3a3a;
+        }
+
+        /* Input Area */
+        .chat-input {
+            padding: 20px;
+            background: var(--bg-light);
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .dark-theme .chat-input {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        .input-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .chat-input input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            padding-right: 50px;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-theme .chat-input input {
+            background: #2a2a2a;
+            border-color: #444;
+            color: var(--text-light);
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
+        }
+
+        .input-icons {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-icons i {
+            color: #888;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .input-icons i:hover {
+            color: var(--primary-color);
+        }
+
+        .send-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(219, 26, 26, 0.4);
+        }
+
+        .send-button:hover {
+            background: #a10d0d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(219, 26, 26, 0.5);
+        }
+
+        /* Suggestions */
+        .suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 0 20px 20px;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .dark-theme .suggestions {
+            background: #1a1a1a;
+        }
+
+        .suggestion {
+            background: rgba(26, 86, 219, 0.1);
+            border: 1px solid rgba(26, 86, 219, 0.2);
+            border-radius: 10px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .dark-theme .suggestion {
+            background: rgba(219, 26, 26, 0.15);
+            border-color: rgba(219, 26, 26, 0.3);
+            color: #ff3a3a;
+        }
+
+        .suggestion:hover {
+            background: rgba(26, 86, 219, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .dark-theme .suggestion:hover {
+            background: rgba(26, 86, 219, 0.25);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 15px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 95vh;
+            }
+            
+            .chat-header {
+                padding: 15px;
+            }
+            
+            .header-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .chat-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .suggestions {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+        <span>Темная тема</span>
+    </button>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="logo-container">
+                <div class="logo">BLC</div>
+                <div class="header-text">
+                    <h1>BOLASHAK COLLEGE Assistant</h1>
+                    <p>Искусственный интеллект для помощи студентам</p>
+                </div>
+            </div>
+            <div class="ai-badge">
+                <div class="pulse"></div>
+                <span>Online</span>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-info">
+                    <div class="avatar">AI</div>
+                    <div class="message-name">Ассистент колледжа</div>
+                    <div class="message-time">сейчас</div>
+                </div>
+                <div class="message-content">
+                    Привет! Я ваш виртуальный помощник из BOLASHAK COLLEGE. 😊<br>
+                    Чем я могу помочь? Вот что я умею:
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Рассказать о специальностях колледжа</li>
+                        <li>Помочь с подачей документов</li>
+                        <li>Показать расписание занятий</li>
+                        <li>Ответить на вопросы о поступлении</li>
+                        <li>Рассказать о студенческой жизни</li>
+                    </ul>
+                    Просто задайте вопрос или выберите один из вариантов ниже!
+                </div>
+            </div>
+        </div>
+
+        <div class="suggestions">
+            <div class="suggestion" data-query="специальности">Какие есть специальности?</div>
+            <div class="suggestion" data-query="поступление">Как поступить в колледж?</div>
+            <div class="suggestion" data-query="расписание">Где найти расписание?</div>
+            <div class="suggestion" data-query="стипендия">Какие есть стипендии?</div>
+        </div>
+
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Напишите ваш вопрос...">
+                <div class="input-icons">
+                    <i class="fas fa-paperclip"></i>
+                    <i class="fas fa-microphone"></i>
+                </div>
+            </div>
+            <button class="send-button" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // DOM elements
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const suggestions = document.querySelectorAll('.suggestion');
+
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            
+            if (body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span>Светлая тема</span>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span>Темная тема</span>';
+            }
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-theme');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span>Светлая тема</span>';
+        }
+
+        // Add message to chat
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                              now.getMinutes().toString().padStart(2, '0');
+            
+            let messageInfo = '';
+            let avatar = '';
+            
+            if (sender === 'user') {
+                messageInfo = `
+                    <div class="message-info">
+                        <div class="avatar">Вы</div>
+                        <div class="message-name">Вы</div>
+                        <div class="message-time">${timeString}</div>
+                    </div>
+                `;
+            } else {
+                messageInfo = `
+                    <div class="message-info">
+                        <div class="avatar">AI</div>
+                        <div class="message-name">Ассистент колледжа</div>
+                        <div class="message-time">${timeString}</div>
+                    </div>
+                `;
+            }
+            
+            messageDiv.innerHTML = `
+                ${messageInfo}
+                <div class="message-content">${content}</div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageDiv;
+        }
+
+        // Show typing indicator
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.classList.add('message', 'bot', 'loading');
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return typingDiv;
+        }
+
+        // Get bot response
+        function getBotResponse(userMessage) {
+            userMessage = userMessage.toLowerCase();
+            
+            // Define responses
+            const responses = {
+                'привет': 'Привет! Чем я могу помочь вам сегодня?',
+                'как дела': 'У меня всё отлично! Готов помочь вам с любыми вопросами о колледже.',
+                'специальности': 'В нашем колледже доступны следующие специальности:<br><br>1. Программное обеспечение<br>2. Компьютерные сети<br>3. Робототехника<br>4. Графический дизайн<br>5. Бизнес-информатика<br>6. Автоматизация процессов<br><br>Подробнее о каждой специальности вы можете узнать в разделе "Специальности" на нашем сайте.',
+                'поступление': 'Для поступления в наш колледж вам необходимо:<br><br>1. Подать заявление (с 20 июня по 15 августа)<br>2. Предоставить аттестат об образовании<br>3. Пройти вступительные испытания (при необходимости)<br>4. Предоставить медицинскую справку формы 086-У<br><br>Вы можете подать заявку онлайн на нашем сайте в разделе "Абитуриентам".',
+                'расписание': 'Расписание занятий доступно в личном кабинете студента. Если вы ещё не зачислены, вы можете посмотреть примерное расписание на нашем сайте в разделе "Студентам".<br><br>Нужна помощь с доступом к личному кабинету?',
+                'стипендия': 'В нашем колледже предусмотрены следующие виды стипендий:<br><br>1. Академическая стипендия (от 2500 руб.)<br>2. Социальная стипендия (от 1500 руб.)<br>3. Именные стипендии (до 10000 руб.)<br><br>Подробные условия получения стипендий вы можете найти в разделе "Студентам" на нашем сайте.',
+                'контакты': 'Вы можете связаться с нами:<br><br>📞 Телефон: +7 (495) 123-45-67<br>📧 Email: info@bolashak-college.ru<br>📍 Адрес: г. Москва, ул. Образования, д. 15<br><br>Мы работаем Пн-Пт с 8:30 до 19:00, Сб с 9:00 до 15:00.',
+                'спасибо': 'Пожалуйста! Если у вас есть ещё вопросы, обращайтесь! 😊',
+                'default': 'Извините, я не совсем понял ваш вопрос. Можете переформулировать?<br>Или задайте один из следующих вопросов:<br><br>- Какие документы нужны для поступления?<br>- Когда начинаются занятия?<br>- Какие есть общежития?<br>- Как подать заявку на стипендию?'
+            };
+            
+            // Find matching response
+            let response = responses['default'];
+            
+            if (userMessage.includes('специальност') || userMessage.includes('направлен')) {
+                response = responses['специальности'];
+            } else if (userMessage.includes('поступ') || userMessage.includes('документ')) {
+                response = responses['поступление'];
+            } else if (userMessage.includes('расписан') || userMessage.includes('занят')) {
+                response = responses['расписание'];
+            } else if (userMessage.includes('стипенд') || userMessage.includes('финанс')) {
+                response = responses['стипендия'];
+            } else if (userMessage.includes('контакт') || userMessage.includes('связаться')) {
+                response = responses['контакты'];
+            } else if (userMessage.includes('привет') || userMessage.includes('здравствуйте')) {
+                response = responses['привет'];
+            } else if (userMessage.includes('как дела') || userMessage.includes('как жизнь')) {
+                response = responses['как дела'];
+            } else if (userMessage.includes('спасибо') || userMessage.includes('благодарю')) {
+                response = responses['спасибо'];
+            }
+            
+            return response;
+        }
+
+        // Send message
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
+            
+            // Show typing indicator
+            const typingIndicator = showTyping();
+            
+            // Simulate AI thinking
+            setTimeout(() => {
+                // Remove typing indicator
+                typingIndicator.remove();
+                
+                // Get and add bot response
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, 'bot');
+            }, 1500);
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Suggestions
+        suggestions.forEach(suggestion => {
+            suggestion.addEventListener('click', () => {
+                const query = suggestion.getAttribute('data-query');
+                userInput.value = query;
+                sendMessage();
+            });
+        });
+
+        // Initial greeting
+        setTimeout(() => {
+            const welcomeMessage = "Добро пожаловать в BO LASH AK COLLEGE! Я здесь, чтобы помочь вам с любыми вопросами о нашем колледже. Не стесняйтесь спрашивать!";
+            addMessage(welcomeMessage, 'bot');
+        }, 1000);
+    </script>
+</body>
+</html>

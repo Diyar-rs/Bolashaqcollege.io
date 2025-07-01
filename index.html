@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БОЛАШАК КОЛЛЕДЖ - Главная</title>
+    <style>
+        /* Общие стили */
+        :root {
+            --primary-color: #7c0000;
+            --secondary-color: #f80000;
+            --light-color: #f4f4f4;
+            --dark-color: #333;
+            --text-color: #333;
+            --bg-color: #fff;
+            --header-height: 80px;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-theme {
+            --text-color: #f4f4f4;
+            --bg-color: #222;
+            --light-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Шапка сайта */
+        header {
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: rgb(0, 0, 0);
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #0400e0;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Основной контент */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            height: 200px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .feature-content {
+            padding: 25px;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Новости */
+        .news {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .news-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .news-content h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Контакты */
+        .contacts {
+            padding: 80px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .map {
+            height: 300px;
+            background-color: #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Баннер директора */
+        .director-banner {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 160px;
+            height: 600px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 500;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .director-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 3px solid var(--primary-color);
+        }
+
+        .director-info h4 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .director-info p {
+            font-size: 0.9rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* Переключатель темы */
+        .theme-switcher {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .theme-switcher:hover {
+            transform: rotate(30deg);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .banner-content h2 {
+                font-size: 2rem;
+            }
+            
+            .director-banner {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .main-banner {
+                height: 60vh;
+            }
+            
+            .banner-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .main-banner {
+                height: 50vh;
+            }
+            
+            .banner-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-image"></div>
+                <h1>BOLASHAK  КОЛЛЕДЖ</h1>
+            </div>
+            
+            <button class="hamburger">☰</button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="about.html">О колледже</a></li>
+                    <li><a href="activity.html">Деятельность</a></li>
+                    <li><a href="specialties.html">Специальности</a></li>
+                    <li><a href="students.html">Студентам</a></li>
+                    <li><a href="applicants.html">Абитуриентам</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="admin.html">Админ-панель</a></li>
+                    <li><a href="ai-chat.html">ИИ-чат</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="main-banner">
+        <div class="container banner-content">
+            <h2>bolashak-college Кош келдыныз</h2>
+            <p>Качественное образование для успешного будущего с 2006 года</p>
+            <a href="applicants.html" class="btn">Поступить в колледж</a>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Наши преимущества</h2>
+            <div class="features-grid">
+                <div class="feature-card animated">
+                    <div class="feature-icon">🎓</div>
+                    <div class="feature-content">
+                        <h3>Качественное образование</h3>
+                        <p>Современные образовательные программы, соответствующие международным стандартам. Преподаватели с большим опытом работы.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card animated delay-1">
+                    <div class="feature-icon">💼</div>
+                    <div class="feature-content">
+                        <h3>Трудоустройство</h3>
+                        <p>Партнерские отношения с ведущими компаниями региона. Гарантированное трудоустройство лучших выпускников.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card animated delay-2">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-content">
+                        <h3>Современная инфраструктура</h3>
+                        <p>Новые лаборатории, компьютерные классы, библиотека с электронными ресурсами, спортивный комплекс.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Новости -->
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">Последние новости</h2>
+            <div class="news-grid">
+                <div class="news-card animated">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="news-content">
+                        <div class="news-date">15 мая 2023</div>
+                        <h3>День открытых дверей</h3>
+                        <p>Приглашаем всех абитуриентов на День открытых дверей, который состоится 25 мая в 15:00.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="news-card animated delay-1">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="news-content">
+                        <div class="news-date">10 мая 2023</div>
+                        <h3>Научная конференция</h3>
+                        <p>Наши студенты заняли первое место на региональной научной конференции по информационным технологиям.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="news-card animated delay-2">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="news-content">
+                        <div class="news-date">5 мая 2023</div>
+                        <h3>Новые специальности</h3>
+                        <p>С нового учебного года открывается набор на новые специальности: "Кибербезопасность" и "Искусственный интеллект".</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contacts">
+        <div class="container">
+            <h2 class="section-title">Наши контакты</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Адрес</h4>
+                            <p>ул. Центральная, д. 123, г. Город</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Телефон</h4>
+                            <p>+7 (123) 456-78-90</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@bolashak-college.edu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <h4>Часы работы</h4>
+                            <p>Пн-Пт: 8:00 - 18:00</p>
+                            <p>Сб: 9:00 - 15:00</p>
+                            <p>Вс: выходной</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map">
+                    <!-- Здесь будет карта -->
+                    <div style="width: 100%; height: 100%; background-color: #e0e0e0; display: flex; align-items: center; justify-content: center;">Карта местоположения</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>БОЛАШАК КОЛЛЕДЖ</h3>
+                    <p>Основан в 2006 году. Обеспечиваем качественное образование и подготовку специалистов для различных отраслей экономики.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О колледже</a></li>
+                        <li><a href="specialties.html">Специальности</a></li>
+                        <li><a href="applicants.html">Абитуриентам</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li>📍 ул. Центральная, д. 123</li>
+                        <li>📞 +7 (123) 456-78-90</li>
+                        <li>✉️ info@bolashak-college.edu</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2006-2023 БОЛАШАК КОЛЛЕДЖ. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Баннер директора -->
+   
+
+    <!-- Переключатель темы -->
+    <div class="theme-switcher">🌓</div>
+
+    <script>
+        // Мобильное меню
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Переключение темы
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Проверка сохраненной темы
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        // Анимации при прокрутке
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.feature-card, .news-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Имитация баннера директора (160x600 мм)
+        console.log("Баннер директора (160x600 мм) размещен в левой нижней части страницы");
+    </script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Специальности - Профессиональный колледж</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Обновлённые стили */
+        :root {
+            --primary-color: #502c2c; /* Темно-синий вместо красного */
+            --secondary-color: #a01616; /* Зеленый акцентный цвет */
+            --accent-color: #e74c3c; /* Красный для акцентов */
+            --light-color: #f8f9fa;
+            --dark-color: #333;
+            --text-color: #333;
+            --bg-color: #fff;
+            --header-height: 80px;
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dark-theme {
+            --text-color: #f4f4f4;
+            --bg-color: #222;
+            --light-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Шапка сайта */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        nav ul li a.active {
+            background-color: var(--secondary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Заголовок страницы */
+        .page-header {
+            height: 300px;
+            background: linear-gradient(rgba(80, 44, 44, 0.85), rgba(80, 44, 44, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: var(--header-height);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .breadcrumb li {
+            margin: 0 5px;
+        }
+
+        .breadcrumb li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb li::after {
+            content: '/';
+            margin-left: 10px;
+            color: #ccc;
+        }
+
+        .breadcrumb li:last-child::after {
+            content: '';
+        }
+
+        /* Основной контент */
+        .specialties-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        .specialty-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .specialty-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .specialty-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .specialty-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+
+        .specialty-content {
+            padding: 25px;
+        }
+
+        .specialty-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .specialty-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .meta-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .specialty-content ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .specialty-content ul li {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #8a1313;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Переключатель темы */
+        .theme-switcher {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .theme-switcher:hover {
+            transform: rotate(30deg);
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .specialties-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .specialties-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-image"></div>
+                <h1>BOLASHAQКОЛЛЕДЖ</h1>
+            </div>
+            
+            <button class="hamburger">☰</button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О колледже</a></li>
+                    <li><a href="activity.html">Деятельность</a></li>
+                    <li><a href="specialties.html" class="active">Специальности</a></li>
+                    <li><a href="students.html">Студентам</a></li>
+                    <li><a href="applicants.html">Абитуриентам</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="admin.html">Админ-панель</a></li>
+                    <li><a href="ai-chat.html">ИИ-чат</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Наши специальности</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Главная</a></li>
+                <li>Специальности</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <section class="specialties-section">
+        <div class="container">
+            <h2 class="section-title">БОЛАШАК направления</h2>
+            
+            <div class="specialties-grid">
+                <!-- Специальность 1 -->
+                <div class="specialty-card animated">
+                    <div class="specialty-header">
+                        <h3>Программное обеспечение</h3>
+                        <div class="specialty-icon"><i class="fas fa-laptop-code"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">3 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">120</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов по разработке программного обеспечения, веб-приложений и мобильных приложений.</p>
+                        <ul>
+                            <li>Программирование на C++, Java, Python</li>
+                            <li>Веб-разработка (HTML, CSS, JavaScript)</li>
+                            <li>Базы данных и SQL</li>
+                            <li>Мобильная разработка</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 2 -->
+                <div class="specialty-card animated delay-1">
+                    <div class="specialty-header">
+                        <h3>Дизайн</h3>
+                        <div class="specialty-icon"><i class="fas fa-paint-brush"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">3 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">60</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка дизайнеров в различных областях: графический дизайн, веб-дизайн, интерьерный дизайн.</p>
+                        <ul>
+                            <li>Adobe Photoshop, Illustrator</li>
+                            <li>3D-моделирование</li>
+                            <li>Визуальные коммуникации</li>
+                            <li>Типографика и колористика</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 3 -->
+                <div class="specialty-card animated delay-2">
+                    <div class="specialty-header">
+                        <h3>Экономика и бухгалтерский учет</h3>
+                        <div class="specialty-icon"><i class="fas fa-calculator"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">2 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">90</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов для работы в финансовых службах предприятий различных форм собственности.</p>
+                        <ul>
+                            <li>Бухгалтерский учет и налогообложение</li>
+                            <li>Финансовый анализ</li>
+                            <li>Экономика предприятия</li>
+                            <li>1С: Бухгалтерия</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 4 -->
+                <div class="specialty-card animated">
+                    <div class="specialty-header">
+                        <h3>Туризм и гостиничный сервис</h3>
+                        <div class="specialty-icon"><i class="fas fa-hotel"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">2 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">70</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов для работы в туристических компаниях, отелях и ресторанах.</p>
+                        <ul>
+                            <li>География туризма</li>
+                            <li>Технологии продаж туруслуг</li>
+                            <li>Гостиничный менеджмент</li>
+                            <li>Иностранные языки</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 5 -->
+                <div class="specialty-card animated delay-1">
+                    <div class="specialty-header">
+                        <h3>Строительство и архитектура</h3>
+                        <div class="specialty-icon"><i class="fas fa-hard-hat"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">3 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">80</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов в области строительства, архитектурного проектирования и дизайна.</p>
+                        <ul>
+                            <li>Архитектурное проектирование</li>
+                            <li>Строительные конструкции</li>
+                            <li>Сметное дело</li>
+                            <li>AutoCAD, Revit</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 6 -->
+                <div class="specialty-card animated delay-2">
+                    <div class="specialty-header">
+                        <h3>Право и социальное обеспечение</h3>
+                        <div class="specialty-icon"><i class="fas fa-gavel"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">2 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">75</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов для работы в органах социальной защиты, юридических службах и кадровых отделах.</p>
+                        <ul>
+                            <li>Правовое обеспечение</li>
+                            <li>Социальная защита населения</li>
+                            <li>Трудовое право</li>
+                            <li>Делопроизводство</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 7 -->
+                <div class="specialty-card animated">
+                    <div class="specialty-header">
+                        <h3>Электротехника</h3>
+                        <div class="specialty-icon"><i class="fas fa-bolt"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">3 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">85</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов по монтажу, наладке и эксплуатации электрооборудования.</p>
+                        <ul>
+                            <li>Электротехника и электроника</li>
+                            <li>Электроснабжение</li>
+                            <li>Автоматика и телемеханика</li>
+                            <li>Электробезопасность</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Специальность 8 -->
+                <div class="specialty-card animated delay-1">
+                    <div class="specialty-header">
+                        <h3>Медицинский лабораторный техник</h3>
+                        <div class="specialty-icon"><i class="fas fa-microscope"></i></div>
+                    </div>
+                    <div class="specialty-content">
+                        <div class="specialty-meta">
+                            <div class="meta-item">
+                                <div class="meta-value">3 года 10 мес</div>
+                                <div class="meta-label">Срок обучения</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-value">65</div>
+                                <div class="meta-label">Бюджетных мест</div>
+                            </div>
+                        </div>
+                        <p>Подготовка специалистов для работы в медицинских лабораториях и диагностических центрах.</p>
+                        <ul>
+                            <li>Клиническая лабораторная диагностика</li>
+                            <li>Биохимические методы исследования</li>
+                            <li>Гистология и цитология</li>
+                            <li>Лабораторное оборудование</li>
+                        </ul>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>БОЛАШАК КОЛЛЕДЖ</h3>
+                    <p>Основан в 2006 году. Обеспечиваем качественное образование и подготовку специалистов для различных отраслей экономики.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О колледже</a></li>
+                        <li><a href="specialties.html">Специальности</a></li>
+                        <li><a href="applicants.html">Абитуриентам</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li>📍 ул. Центральная, д. 123</li>
+                        <li>📞 +7 (123) 456-78-90</li>
+                        <li>✉️ info@profcollege.edu</li>
+                        <li>🕒 Пн-Пт: 8:00 - 18:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2006-2023 Профессиональный колледж. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Переключатель темы -->
+    <div class="theme-switcher">🌓</div>
+
+    <script>
+        // Мобильное меню
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Переключение темы
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Проверка сохраненной темы
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        // Анимации при прокрутке
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.specialty-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
