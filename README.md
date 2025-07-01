@@ -1,0 +1,2 @@
+# Bolashaqcollege.io
+About college
